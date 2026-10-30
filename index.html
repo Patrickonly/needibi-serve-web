@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Needibi Serve — Get Your Needs Served. Post what you need, compare offers from KYC-verified Partners in Rwanda, pay safely into escrow." />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <title>Needibi Serve — Get Your Needs Served</title>
+    <style>
+      /* Splash: plain HTML so it paints before any JS. It stays visible for ten seconds.
+         Follows the saved theme: white in light mode, navy-black in dark mode. */
+      #splash { --sp-bg: #ffffff; --sp-serve: #2a4da1; --sp-tag: #5b6474; --sp-track: #e5e7eb; --sp-fill: #2a4da1; --sp-foot: #94a0b4;
+        position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        background: var(--sp-bg); font-family: 'Work Sans Variable', 'Work Sans', system-ui, sans-serif; transition: opacity 260ms ease-out; }
+      html[data-theme='dark'] #splash { --sp-bg: #0b1220; --sp-serve: #ffffff; --sp-tag: #94a0b4; --sp-track: #25314a; --sp-fill: #fdd546; --sp-foot: #5b6577; }
+      #splash.hide { opacity: 0; pointer-events: none; }
+      html.splash-seen #splash { display: none; }
+      #splash .content { display: flex; flex-direction: column; align-items: center; animation: splash-in 420ms ease-out both; }
+      #splash .logo { display: flex; align-items: center; gap: 12px; }
+      #splash .name { white-space: nowrap; font-size: 36px; font-weight: 900; font-style: italic; letter-spacing: -0.04em; line-height: 1; }
+      #splash .name .a { color: #f5c800; } #splash .name .b { color: var(--sp-serve); }
+      #splash .tag { margin-top: 14px; color: var(--sp-tag); font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+      #splash .bar { margin-top: 36px; width: 160px; height: 3px; border-radius: 3px; background: var(--sp-track); overflow: hidden; }
+      #splash .bar i { display: block; height: 100%; width: 40%; border-radius: 3px; background: var(--sp-fill); animation: splash-load 1.1s ease-in-out infinite; }
+      #splash .foot { position: absolute; bottom: 28px; color: var(--sp-foot); font-size: 12px; font-weight: 500; }
+      @keyframes splash-load { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+      @keyframes splash-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+      @media (prefers-reduced-motion: reduce) { #splash .bar i, #splash .content { animation: none; } #splash .bar i { width: 60%; } }
+    </style>
+    <script>
+      // Light is the default theme. Dark only applies if the user chose it with the toggle.
+      try {
+        var t = JSON.parse(localStorage.getItem('ns-ui') || '{}').state?.theme;
+        document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    </script>
+  </head>
+  <body>
+    <div id="splash" role="status" aria-label="Loading Needibi Serve">
+      <div class="content">
+        <div class="logo">
+          <svg width="72" height="45" viewBox="20 31 102 63" aria-hidden="true"><path fill="#2a4da1" d="M90 34 L118.8 34 L107.5 57 L100 55.6 L88 53.4 L78 51.4 L68.6 51 L61.5 59.5 L58 59.6 Q49 58.6 43 56.6 L46 51 L52.5 42.5 Q55.5 39 60 39 L80.5 41.6 L85.5 41.6 Z"/><path fill="#FDD546" d="M35 65 L77 71.6 L80.4 66 Q82 62 85.5 62 L104.6 64.8 L94.5 81.5 Q91.5 86.6 86 86.6 L62 82.6 L59.4 82.4 L56.4 91.6 L22 91.6 Z"/></svg>
+          <div class="name"><span class="a">Needibi</span> <span class="b">Serve</span></div>
+        </div>
+        <div class="tag">Get your needs served</div>
+        <div class="bar"><i></i></div>
+      </div>
+      <div class="foot">Kigali, Rwanda</div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
